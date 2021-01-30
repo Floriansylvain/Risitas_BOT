@@ -1,5 +1,6 @@
 import discord
 import asyncio
+from time import sleep
 from discord.ext import commands
 from private import token_bot
 from riot_api import rank_track, watcher, region
@@ -37,7 +38,19 @@ async def rank(ctx, arg, argF=None):
         await ctx.send("Si vous essayez d'entrer un pseudo aved des espaces, veillez à l'entourer avec des guillemets.")
 
 @bot.command()
-async def aled(ctx):
-    await ctx.send("Tapez $rank suivit de votre pseudo League of Legend EUW pour connaître vos classements.")
+async def issou(ctx):
+    user = ctx.message.author
+    await ctx.message.delete()
+    voice_channel = ctx.message.author.voice.channel
+    channel = None
+    if voice_channel != None:
+        channel = voice_channel.name
+        vc = await voice_channel.connect()
+        vc.play(discord.FFmpegPCMAudio('issou.mp3'))
+        if vc.is_playing():
+            sleep(1)
+        await vc.disconnect()
+    else:
+        await ctx.send('Vous n\'êtes connecté à aucun salon.')
 
 bot.run(token_bot)
