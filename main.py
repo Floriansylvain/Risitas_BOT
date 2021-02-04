@@ -1,8 +1,4 @@
-import asyncio
-import socket
-import re
-import discord
-from time import sleep
+import asyncio, socket, re, discord
 from discord.ext import tasks, commands
 from private import *
 from riot_api import rank_track, watcher, region
@@ -39,7 +35,7 @@ def chat_init(twitch_chan):
 def get_msg():
     try:
         resp = SOCK.recv(2048).decode('utf-8')
-    except:
+    except socket.error:
         resp = ''
 
     if resp.startswith('PING'):
@@ -69,7 +65,7 @@ async def rank(ctx, arg, argF=None):
     if argF is None:
         try:
             player = watcher.summoner.by_name(region, arg)
-            ranks = rank_track(arg, player)
+            ranks = rank_track(player)
             embed = discord.Embed(title = arg, url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
             embed.set_thumbnail(url = "http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/" + str(player['profileIconId']) + ".png")
             if type(ranks) is list:

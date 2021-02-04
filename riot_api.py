@@ -5,7 +5,7 @@ from private import token_riot
 watcher = LolWatcher(token_riot)
 region = 'EUW1'
 
-def rank_track(nickname, player):
+def rank_track(player):
     ranked_stats = watcher.league.by_summoner(region, player['id'])
     if not ranked_stats:
         return 'Unranked cette saison.'
