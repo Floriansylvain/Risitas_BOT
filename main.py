@@ -81,10 +81,17 @@ async def rank(ctx, arg, argF=None):
         await ctx.send("Si vous essayez d'entrer un pseudo aved des espaces, veillez à l'entourer avec des guillemets.")
 
 @bot.command()
-async def issou(ctx):
-    user = ctx.message.author
+async def issou(ctx, arg1:discord.User=None):
+    if arg1 is not None:
+        user = arg1
+    else:
+        user = ctx.message.author
     await ctx.message.delete()
-    voice_channel = ctx.message.author.voice.channel
+    try:
+        voice_channel = user.voice.channel
+    except AttributeError:
+        voice_channel = None
+
     channel = None
     if voice_channel != None:
         channel = voice_channel.name
@@ -94,7 +101,7 @@ async def issou(ctx):
             await asyncio.sleep(1)
         await vc.disconnect()
     else:
-        await ctx.send('Vous n\'êtes connecté à aucun salon.')
+        await ctx.send('Vous ou la personne ciblée n\'êtes connecté à aucun salon.')
 
 @bot.command()
 async def chat_set(ctx, arg1, argF=None):
