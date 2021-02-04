@@ -1,8 +1,6 @@
-import discord
 import asyncio
 import socket
 import re
-import signal
 from time import sleep
 from discord.ext import tasks, commands
 from private import *
@@ -22,7 +20,7 @@ def check_user(name):
         return False
     return True
 
-def chat_init(twitch_chan, ctx):
+def chat_init(twitch_chan):
     global SOCK
     if check_user(twitch_chan):
         try:
@@ -33,7 +31,7 @@ def chat_init(twitch_chan, ctx):
             SOCK.settimeout(0.0)
             SOCK.setblocking(0)
             return 1
-        except:
+        except OSError:
             return('```Impossible de se connecter au chat IRC de Twitch.```')
     return('```Cette chaine n\'existe pas. Verifiez l\'orthographe ou la syntaxe.```')
 
@@ -106,7 +104,7 @@ async def chat_set(ctx, arg1, argF=None):
     global TASK
     if argF is None:
         if TASK is None:
-            test = chat_init(arg1, ctx)
+            test = chat_init(arg1)
             if type(test) is int and test == 1:
                 await ctx.send(f'```Connection à la chaine {arg1} réussie !```')
                 TASK = bot.loop.create_task(twitch(ctx))
