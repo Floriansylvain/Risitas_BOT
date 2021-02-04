@@ -1,6 +1,7 @@
 import asyncio
 import socket
 import re
+import discord
 from time import sleep
 from discord.ext import tasks, commands
 from private import *
