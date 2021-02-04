@@ -58,6 +58,7 @@ async def twitch(discord_chan):
 
 @bot.event
 async def on_ready():
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"$help"))
     print('We have logged in as {0.user}'.format(bot))
 
 @bot.command()
