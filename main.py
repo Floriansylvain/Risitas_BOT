@@ -132,7 +132,7 @@ async def chat_stop(ctx):
         SOCK.shutdown(1)
         SOCK.close()
         SOCK = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        await bot.change_presence(activity=None)
+        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"$help"))
         await ctx.send('```Le chat a été arrêté !```')
 
 bot.run(token_bot)
