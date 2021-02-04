@@ -111,6 +111,7 @@ async def chat_set(ctx, arg1, argF=None):
             test = chat_init(arg1)
             if type(test) is int and test == 1:
                 await ctx.send(f'```Connection à la chaine {arg1} réussie !```')
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"le chat de {arg1}."))
                 TASK = bot.loop.create_task(twitch(ctx))
             else:
                 await ctx.send(test)
@@ -131,6 +132,7 @@ async def chat_stop(ctx):
         SOCK.shutdown(1)
         SOCK.close()
         SOCK = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        await bot.change_presence(activity=None)
         await ctx.send('```Le chat a été arrêté !```')
 
 bot.run(token_bot)
