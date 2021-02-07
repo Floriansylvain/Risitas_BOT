@@ -15,3 +15,7 @@ and same for the sockets related vars :
 * nickname
 
 For obvious reasons, I won't upload this file.
+
+---
+
+07/02/2021 : Currently working on a OOP version that allows multiple server and channels usage for the twitch chat command.
