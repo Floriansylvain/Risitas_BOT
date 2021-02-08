@@ -2,12 +2,12 @@
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    <img alt="License: GPL 3.0" src="https://img.shields.io/badge/License-GPL%203.0-yellow" />
   </a>
   <img alt="Github Stars" src="https://img.shields.io/github/stars/Floriansylvain/Risitas_BOT?style=social">
 </p>
 
->Risitas is a Discord bot that can connect your twitch chat to a discord channel in real time, make laugh your friends by playing the "Issou !" meme on command in a voce channel and even give you >your League Of Legend rank.
+>Risitas is a Discord bot that can connect your twitch chat to a discord channel in real time, make laugh your friends by playing the "Issou !" meme on command in a voice channel and even give you your League Of Legend rank.
 
 <br>
 
@@ -16,6 +16,10 @@
 <br>
 
 ![](chat_record1.gif)
+
+<br>
+
+![](rank_record.gif)
 
 <br>
 
@@ -34,7 +38,7 @@ This command allows you to start the link between the channel where you use the 
 ```
 $chat_stop
 ```
-This command allows you to stop the active chat in the channel.
+This command allows you to stop the active twitch chat in the channel.
 
 
 ### **issou**
@@ -48,7 +52,7 @@ This command will make the bot shout the "Issou !" meme in a voice channel. By d
 ```
 $rank {lol_username}
 ```
-This command will display a message with the current League of Legend rank of the EUW account you ask for. Make surre to use quotes if there is spaces in the LoL username.
+This command will display a message with the current League of Legend rank of the EUW account you ask for. Make sure to use quotes if there is spaces in the LoL username.
 
 <br>
 
