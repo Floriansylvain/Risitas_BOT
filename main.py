@@ -5,7 +5,6 @@ from riot_api import rank_track, watcher, region
 from riotwatcher import ApiError
 from emoji import demojize
 from twitch import TwitchClient
-import gc
 
 bot = commands.Bot(command_prefix='$')
 twitch_client = TwitchClient(client_id = id_twitch, oauth_token = token_twitch)
@@ -51,9 +50,12 @@ class ChatObj(object):
                 pass
 
     @twitch.after_loop
-    async def after_slow_count():
+    async def after_twitch():
         self.sock.shutdown(1)
-        self.sock.close()
+        try:
+            self.sock.close()
+        except OSError:
+            pass
 
 def check_user(name):
     user = twitch_client.users.translate_usernames_to_ids([name])
@@ -89,9 +91,10 @@ async def chat_stop(ctx):
     if chan in list(chats):
         chats[chan].twitch.stop()
         del chats[chan]
-        await ctx.send('```The chat was successfully stopped !```')
+        message = '```The chat was successfully stopped !```'
     else:
-        await ctx.send('```There is no active chat in this channel.```')
+        message = '```There is no active chat in this channel.```'
+    await ctx.send(message)
 
 @bot.command()
 async def rank(ctx, arg, argF=None):
@@ -126,7 +129,7 @@ async def issou(ctx, arg1:discord.User=None):
         voice_channel = None
 
     channel = None
-    if voice_channel != None:
+    if voice_channel is not None:
         channel = voice_channel.name
         vc = await voice_channel.connect()
         vc.play(discord.FFmpegPCMAudio('issou.mp3'))
