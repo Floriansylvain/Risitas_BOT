@@ -19,10 +19,6 @@ class ChatObj(object):
         self.discord_chan = discord_chan
         chats[discord_chan] = self
 
-    def __del__(self):
-        print("test ssvp")
-        del self
-
     def chat_init(self):
         try:
             self.sock.connect((server, port))
