@@ -2,6 +2,8 @@
 
 ![](chat_record1.gif)
 
+![](rank_record.gif)
+
 ## Usage
 
 ```
