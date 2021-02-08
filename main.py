@@ -15,20 +15,20 @@ chats = dict()
 
 
 class ChatObj:
-    def __init__(self, twitch_chan, discord_chan):
+    def __init__(self, twitch_user, discord_channel):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.twitch_chan = twitch_chan
-        self.discord_chan = discord_chan
-        chats[discord_chan] = self
+        self.twitch_user = twitch_user
+        self.discord_channel = discord_channel
+        chats[discord_channel] = self
 
     def chat_init(self):
         try:
             self.sock.connect((SERVER, PORT))
             self.sock.send(f"PASS {TOKEN_TWITCH}\n".encode('utf-8'))
             self.sock.send(f"NICK {NICKNAME}\n".encode('utf-8'))
-            self.sock.send(f"JOIN {'#' + self.twitch_chan}\n".encode('utf-8'))
+            self.sock.send(f"JOIN {'#' + self.twitch_user}\n".encode('utf-8'))
             self.sock.settimeout(0.0)
-            self.sock.setblocking(0)
+            self.sock.setblocking(False)
             return 1
         except OSError:
             return 0
@@ -50,7 +50,7 @@ class ChatObj:
                 username = chain.group(1)
                 message = chain.group(3)
                 msg = f"**__{username}__ :** {message}"
-                await self.discord_chan.send(msg)
+                await self.discord_channel.send(msg)
             except discord.DiscordException:
                 pass
             except AttributeError:
@@ -82,12 +82,12 @@ async def on_ready():
 @bot.command()
 async def chat_set(ctx, arg1):
     await ctx.message.delete()
-    chan = ctx.channel
-    if chan in list(chats):
+    what_channel = ctx.channel
+    if what_channel in list(chats):
         await ctx.send("```A chat is already active, you have to stop it before with the cmd $chat_stop !```")
     else:
         if check_user(arg1):
-            obj = ChatObj(arg1, chan)
+            obj = ChatObj(arg1, what_channel)
             if obj.chat_init():
                 await ctx.send(f'```Now connected to {arg1}\'s twitch channel !```')
                 obj.twitch.start()
