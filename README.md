@@ -1,46 +1,88 @@
-# Risitas_BOT
+<h1 align="center">🤖 Risitas Discord Bot 🤖</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
+  <a href="#" target="_blank">
+    <img alt="License: GPL 3.0" src="https://img.shields.io/badge/License-GPL%203.0-yellow" />
+  </a>
+  <img alt="Github Stars" src="https://img.shields.io/github/stars/Floriansylvain/Risitas_BOT?style=social">
+</p>
+
+>Risitas is a Discord bot that can connect your twitch chat to a discord channel in real time, make laugh your friends by playing the "Issou !" meme on command in a voice channel and even give you your League Of Legend rank.
+
+<br>
+
+# 💻 Demo
+
+<br>
 
 ![](chat_record1.gif)
 
+<br>
+
 ![](rank_record.gif)
 
-## Usage
+<br>
 
+# 📢 Commands
+
+<br>
+
+### **chat_set**
 ```
-$chat_set ...
+$chat_set {name_of_twitch_channel}
 ```
+This command allows you to start the link between the channel where you use the command and a twitch chat.
 
-This command allows you to link the channel where you use the command to a twitch channel chat.
 
+### **chat_stop**
 ```
 $chat_stop
 ```
+This command allows you to stop the active twitch chat in the channel.
 
-Use this command to stop the chat active in the channel.
 
+### **issou**
 ```
-$issou (...)
+$issou @{discord_member}
 ```
+This command will make the bot shout the "Issou !" meme in a voice channel. By default it will do it in the voice channel where the user is connected but you can tag a user on your server to make the bot join their voice channel.
 
-By default, $issou will make the bot come in the voice channel where you are and shout "issou !", but if you tag someone with it, it will shout "issou" at the person you tagged ! (if he's connected to any voice channel on the server ofc)
 
+### **rank**
 ```
-$rank ...
+$rank {lol_username}
 ```
+This command will display a message with the current League of Legend rank of the EUW account you ask for. Make sure to use quotes if there is spaces in the LoL username.
 
-The $rank command will show you League of Legend ranks of the EUW account you ask for. (please use quotes if there is spaces in the nickname you try to use the command with)
+<br>
 
-## Tokens and IDs
+# ⚙ Configuration
 
-They are normally in a "private.py" file and named respectively :
+>**To use this bot you'll have to create a private.py file and enter the different tokens to use the API's by assigning values to those variables**
+```
+External service tokens :
 * token_bot
 * token_riot
 * token_twitch
 * id_twitch
 
-and same for the sockets related vars :
+Socket related var :
 * server
 * port
 * nickname
+```
 
-For obvious reasons, I won't upload this file.
+<br>
+
+# 👨‍💻 Author
+
+👤 **Florian Sylvain**
+
+* Website: https://andhefallen.site/
+* Github: [@Floriansylvain](https://github.com/Floriansylvain)
+
+<br>
+
+## ⭐️ Show your support
+
+Give a ⭐️ if you liked this project!
