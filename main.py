@@ -83,7 +83,7 @@ async def chat_set(ctx, arg1):
             else:
                 await ctx.send('```Something went wrong when trying to access Twitch IRC.```')
         else:
-            return('```This twitch channel doesn\'t seems to exist.```')
+            await ctx.send('```This twitch channel doesn\'t seems to exist.```')
 
 @bot.command()
 async def chat_stop(ctx):
@@ -91,6 +91,7 @@ async def chat_stop(ctx):
     if chan in list(chats):
         chats[chan].twitch.stop()
         del chats[chan]
+        await asyncio.sleep(1)
         message = '```The chat was successfully stopped !```'
     else:
         message = '```There is no active chat in this channel.```'
