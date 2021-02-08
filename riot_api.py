@@ -1,12 +1,13 @@
 from riotwatcher import LolWatcher
-from private import token_riot
+from private import TOKEN_RIOT
 
-watcher = LolWatcher(token_riot)
-region = 'EUW1'
+WATCHER = LolWatcher(TOKEN_RIOT)
+REGION = 'EUW1'
 
 def rank_track(player):
-    ranked_stats = watcher.league.by_summoner(region, player['id'])
-    
+    '''function that communicate with Riot API'''
+    ranked_stats = WATCHER.league.by_summoner(REGION, player['id'])
+
     if not ranked_stats:
         return 'Unranked cette saison.'
 
