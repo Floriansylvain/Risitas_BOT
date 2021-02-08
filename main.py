@@ -5,11 +5,59 @@ from riot_api import rank_track, watcher, region
 from riotwatcher import ApiError
 from emoji import demojize
 from twitch import TwitchClient
+import gc
 
 bot = commands.Bot(command_prefix='$')
-TASK = None
-SOCK = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 twitch_client = TwitchClient(client_id = id_twitch, oauth_token = token_twitch)
+chats = dict()
+
+class ChatObj(object):
+    
+    def __init__(self, twitch_chan, discord_chan):
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.twitch_chan = twitch_chan
+        self.discord_chan = discord_chan
+        chats[discord_chan] = self
+
+    def __del__(self):
+        print("test ssvp")
+        del self
+
+    def chat_init(self):
+        try:
+            self.sock.connect((server, port))
+            self.sock.send(f"PASS {token_twitch}\n".encode('utf-8'))
+            self.sock.send(f"NICK {nickname}\n".encode('utf-8'))
+            self.sock.send(f"JOIN {'#'+self.twitch_chan}\n".encode('utf-8'))
+            self.sock.settimeout(0.0)
+            self.sock.setblocking(0)
+            return 1
+        except OSError as test:
+            return 0
+
+    @tasks.loop(seconds=1)
+    async def twitch(self):
+        await bot.wait_until_ready()
+        try:
+            resp = self.sock.recv(2048).decode('utf-8')
+        except socket.error:
+            resp = ''
+        
+        if resp.startswith('PING'):
+            self.sock.send("PONG\n".encode('utf-8'))
+
+        elif len(resp) > 0:
+            try:
+                username, channel, message = re.search(':(.*)\!.*@.*\.tmi\.twitch\.tv PRIVMSG #(.*) :(.*)', demojize(resp)).groups()
+                msg = f"**__{username}__ :** {message}"
+                await self.discord_chan.send(msg)
+            except Exception:
+                pass
+
+    @twitch.after_loop
+    async def after_slow_count():
+        self.sock.shutdown(1)
+        self.sock.close()
 
 def check_user(name):
     user = twitch_client.users.translate_usernames_to_ids([name])
@@ -17,49 +65,37 @@ def check_user(name):
         return False
     return True
 
-def chat_init(twitch_chan):
-    global SOCK
-    if check_user(twitch_chan):
-        try:
-            SOCK.connect((server, port))
-            SOCK.send(f"PASS {token_twitch}\n".encode('utf-8'))
-            SOCK.send(f"NICK {nickname}\n".encode('utf-8'))
-            SOCK.send(f"JOIN {'#'+twitch_chan}\n".encode('utf-8'))
-            SOCK.settimeout(0.0)
-            SOCK.setblocking(0)
-            return 1
-        except OSError:
-            return('```Impossible de se connecter au chat IRC de Twitch.```')
-    return('```Cette chaine n\'existe pas. Verifiez l\'orthographe ou la syntaxe.```')
-
-def get_msg():
-    try:
-        resp = SOCK.recv(2048).decode('utf-8')
-    except socket.error:
-        resp = ''
-
-    if resp.startswith('PING'):
-        sock.send("PONG\n".encode('utf-8'))
-    
-    elif len(resp) > 0:
-        try:
-            username, channel, message = re.search(':(.*)\!.*@.*\.tmi\.twitch\.tv PRIVMSG #(.*) :(.*)', demojize(resp)).groups()
-            return f"**__{username}__ :** {message}"
-        except Exception:
-            pass
-
-async def twitch(discord_chan):
-    await bot.wait_until_ready()
-    while bot.is_ready:
-        msg = get_msg()
-        if msg != None:
-            await discord_chan.send(msg)
-        await asyncio.sleep(1)
-
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"$help"))
     print('We have logged in as {0.user}'.format(bot))
+
+
+@bot.command()
+async def chat_set(ctx, arg1):
+    chan = ctx.channel
+    if chan in list(chats):
+        await ctx.send("```A chat is already active, you have to stop it before with the cmd $chat_stop !```")
+    else:
+        if check_user(arg1):
+            obj = ChatObj(arg1, chan)
+            if obj.chat_init():
+                await ctx.send(f'```Now connected to {arg1}\'s twitch channel !```')
+                obj.twitch.start()
+            else:
+                await ctx.send('```Something went wrong when trying to access Twitch IRC.```')
+        else:
+            return('```This twitch channel doesn\'t seems to exist.```')
+
+@bot.command()
+async def chat_stop(ctx):
+    chan = ctx.channel
+    if chan in list(chats):
+        chats[chan].twitch.stop()
+        del chats[chan]
+        await ctx.send('```The chat was successfully stopped !```')
+    else:
+        await ctx.send('```There is no active chat in this channel.```')
 
 @bot.command()
 async def rank(ctx, arg, argF=None):
@@ -77,9 +113,9 @@ async def rank(ctx, arg, argF=None):
                 embed.description = ranks
             await ctx.send(embed = embed)
         except ApiError:
-            await ctx.send("Le pseudo est inconnu.")
+            await ctx.send("The nickname is unknow.")
     else:
-        await ctx.send("Si vous essayez d'entrer un pseudo aved des espaces, veillez à l'entourer avec des guillemets.")
+        await ctx.send("If you are trying to use a nickname with spaces, please surround it with quotes.")
 
 @bot.command()
 async def issou(ctx, arg1:discord.User=None):
@@ -102,38 +138,6 @@ async def issou(ctx, arg1:discord.User=None):
             await asyncio.sleep(1)
         await vc.disconnect()
     else:
-        await ctx.send('Vous ou la personne ciblée n\'êtes connecté à aucun salon.')
-
-@bot.command()
-async def chat_set(ctx, arg1, argF=None):
-    global TASK
-    if argF is None:
-        if TASK is None:
-            test = chat_init(arg1)
-            if type(test) is int and test == 1:
-                await ctx.send(f'```Connection à la chaine {arg1} réussie !```')
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"le chat de {arg1}."))
-                TASK = bot.loop.create_task(twitch(ctx))
-            else:
-                await ctx.send(test)
-        else:
-            await ctx.send('```Désactivez le chat avec " $chat_stop " avant d\'en créer un nouveau !```')
-    else:
-        await ctx.send('```Les espaces ne sont pas tolérés. Veuillez récupérer le nom de chaine dans le lien de celle-ci, par ex "andhefallen" pour "twitch.tv/andhefallen."```')
-
-@bot.command()
-async def chat_stop(ctx):
-    global TASK
-    global SOCK
-    if TASK is None:
-        await ctx.send('```Aucun chat n\'est en cours d\'éxécution.```')
-    else:
-        TASK.cancel()
-        TASK = None
-        SOCK.shutdown(1)
-        SOCK.close()
-        SOCK = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"$help"))
-        await ctx.send('```Le chat a été arrêté !```')
+        await ctx.send('You or the targeted person are not connected to any channel.')
 
 bot.run(token_bot)
