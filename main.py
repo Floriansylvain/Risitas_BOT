@@ -72,6 +72,13 @@ def check_user(name):
     return True
 
 
+async def del_message(ctx):
+    try:
+        await ctx.message.delete()
+    except discord.errors.Forbidden:
+        pass
+
+
 @bot.event
 async def on_ready():
     default_activity = discord.Activity(type=discord.ActivityType.listening, name="$help")
@@ -81,7 +88,7 @@ async def on_ready():
 
 @bot.command()
 async def chat_set(ctx, arg1):
-    await ctx.message.delete()
+    await del_message(ctx)
     what_channel = ctx.channel
     if what_channel in list(chats):
         await ctx.send("```A chat is already active, you have to stop it before with the cmd $chat_stop !```")
@@ -99,7 +106,7 @@ async def chat_set(ctx, arg1):
 
 @bot.command()
 async def chat_stop(ctx):
-    await ctx.message.delete()
+    await del_message(ctx)
     chan = ctx.channel
     if chan in list(chats):
         chats[chan].twitch.stop()
@@ -113,7 +120,7 @@ async def chat_stop(ctx):
 
 @bot.command()
 async def rank(ctx, arg, argf=None):
-    await ctx.message.delete()
+    await del_message(ctx)
     if argf is None:
         try:
             player = WATCHER.summoner.by_name(REGION, arg)
@@ -129,7 +136,7 @@ async def rank(ctx, arg, argf=None):
                 embed.description = ranks
             await ctx.send(embed=embed)
         except ApiError:
-            await ctx.send("The nickname is unknow.")
+            await ctx.send("The nickname is unknown.")
     else:
         await ctx.send("If you are trying to use a nickname with spaces, please surround it with quotes.")
 
@@ -140,7 +147,7 @@ async def issou(ctx, arg1: discord.User = None):
         user = arg1
     else:
         user = ctx.message.author
-    await ctx.message.delete()
+    await del_message(ctx)
     try:
         voice_channel = user.voice.channel
     except AttributeError:
