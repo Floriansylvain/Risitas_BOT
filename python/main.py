@@ -3,12 +3,12 @@ import socket
 import re
 import discord
 from private import *
+from osu_api import *
 from discord.ext import tasks, commands
 from riot_api import rank_track, WATCHER, REGION
 from riotwatcher import ApiError
 from emoji import demojize
 from twitch import TwitchClient
-from osu_api import ask_osu
 
 bot = commands.Bot(command_prefix='$')
 twitch_client = TwitchClient(client_id=ID_TWITCH, oauth_token=TOKEN_TWITCH)
@@ -170,26 +170,53 @@ async def issou(ctx, arg1: discord.User = None):
 @bot.command()
 async def osu_profile(ctx, arg):
     await del_message(ctx)
-    lst = await ask_osu(arg)
+    lst = await ask_osu_profile(arg)
     if lst == 1:
         await ctx.send('The username you entered is unknown.')
     else:
         embed = discord.Embed(title=arg, url='https://osu.ppy.sh/users/' + str(lst[0]))
-        embed.set_thumbnail(url='https://a.ppy.sh/' + str(lst[0]))
         embed.set_author(name='Osu!', url='https://osu.ppy.sh/home',
             icon_url=r'https://upload.wikimedia.org/wikipedia/commons/4/44/Osu%21Logo_%282019%29.png')
+        embed.set_thumbnail(url='https://a.ppy.sh/' + str(lst[0]))
         embed.add_field(name='Global Ranking',  value='#'+str('{:,}'.format(lst[8])))
         embed.add_field(name='Total Play Time', value=
             str("%.0f" % ((lst[6] % (86400 * 30)) / 86400))+'d '+
             str("%.0f" % ((lst[6] % 86400) / 3600))+'h '+
             str("%.0f" % ((lst[6] % 3600) / 60))+'m ')
+        embed.add_field(name='|', value='|')
         embed.add_field(name='Level',        value=str("%.0f" % lst[7]))
         embed.add_field(name='Ranked Score', value=str('{:,}'.format(lst[1])))
         embed.add_field(name='Hit Accuracy', value=str("%.2f" % lst[2])+'%')
         embed.add_field(name='Play Count',   value=str('{:,}'.format(lst[3])))
         embed.add_field(name='Total Score',  value=str('{:,}'.format(lst[4])))
         embed.add_field(name='Total Hits',   value=str('{:,}'.format(lst[5])))
+        await ctx.send(embed=embed)
 
+
+@bot.command()
+async def osu_lastgame(ctx, arg):
+    await del_message(ctx)
+    lst = await ask_osu_last_game(arg)
+    if lst == 1:
+        await ctx.send('The player you entered is unknown or didn\'t played any game recently.')
+    else:
+        embed = discord.Embed(title=str(lst[1]) + ' by ' + str(lst[2]), url='https://osu.ppy.sh/beatmapsets/' + str(lst[0]),
+            description='BPM: ' + str("%.0f" % lst[3]) + ' ; Stars: ' + str("%.1f" % lst[4]) +
+            ' ; CS: ' + str(lst[5]) + ' ; OD: ' +  str(lst[6]) +
+            ' ; AR: ' + str(lst[7]) + ' ; HP: ' + str(lst[8]))
+        embed.set_author(name='Osu!', url='https://osu.ppy.sh/home',
+            icon_url=r'https://upload.wikimedia.org/wikipedia/commons/4/44/Osu%21Logo_%282019%29.png')
+        embed.set_thumbnail(url='https://b.ppy.sh/thumb/' + str(lst[0]) + 'l.jpg')
+        embed.add_field(name='Rank',      value=str(lst[11]))
+        embed.add_field(name='Score',     value=str('{:,}'.format(lst[9])))
+        embed.add_field(name='Max Combo', value=str(lst[10]))
+        embed.add_field(name='300',       value=str(lst[12]))
+        embed.add_field(name='100',       value=str(lst[13]))
+        embed.add_field(name='Accuracy',
+            value=str("%.2f" % ((lst[12]/(lst[12]+lst[13]+lst[14]+lst[15]))*100)) + '%')
+        embed.add_field(name='50',        value=str(lst[14]))
+        embed.add_field(name='Miss',      value=str(lst[15]))
+        embed.add_field(name='Player :',  value=str(arg))
         await ctx.send(embed=embed)
 
 
