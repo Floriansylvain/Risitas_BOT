@@ -1,6 +1,6 @@
 <h1 align="center">🤖 Risitas Discord Bot 🤖</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.1-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
     <img alt="License: GPL 3.0" src="https://img.shields.io/badge/License-GPL%203.0-yellow" />
   </a>
@@ -72,15 +72,16 @@ This command will display a message with all the (basics) stats from the Osu! pr
 >**To use this bot you'll have to create a private.py file and enter the different tokens to use the API's by assigning values to those variables**
 ```
 External service tokens :
-* token_bot
-* token_riot
-* token_twitch
-* id_twitch
+* TOKEN_BOT
+* TOKEN_RIOT
+* TOKEN_TWITCH
+* TOKEN_OSU
+* ID_TWITCH
 
 Socket related var :
-* server
-* port
-* nickname
+* SERVER
+* PORT
+* NICKNAME
 ```
 
 <br>
