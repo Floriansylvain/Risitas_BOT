@@ -15,11 +15,15 @@
 
 <br>
 
-![](chat_record1.gif)
+![](assets/chat_record1.gif)
 
 <br>
 
-![](rank_record.gif)
+![](assets/rank_record.gif)
+
+<br>
+
+![](assets/osu_record.gif)
 
 <br>
 
@@ -53,6 +57,13 @@ This command will make the bot shout the "Issou !" meme in a voice channel. By d
 $rank {lol_username}
 ```
 This command will display a message with the current League of Legend rank of the EUW account you ask for. Make sure to use quotes if there is spaces in the LoL username.
+
+
+### **osu_profile**
+```
+$osu_profile {osu_username}
+```
+This command will display a message with all the (basics) stats from the Osu! profile you ask for.
 
 <br>
 
