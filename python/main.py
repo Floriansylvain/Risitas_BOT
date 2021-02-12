@@ -202,8 +202,8 @@ async def osu_lastgame(ctx, arg):
     else:
         embed = discord.Embed(title=str(lst[1]) + ' by ' + str(lst[2]), url='https://osu.ppy.sh/beatmapsets/' + str(lst[0]),
             description='BPM: ' + str("%.0f" % lst[3]) + ' ; Stars: ' + str("%.1f" % lst[4]) +
-            ' ; CS: ' + str(lst[5]) + ' ; OD: ' +  str(lst[6]) +
-            ' ; AR: ' + str(lst[7]) + ' ; HP: ' + str(lst[8]))
+            ' ; CS: ' + str(lst[5]) + ' ; AR: ' +  str(lst[7]) +
+            ' ; OD: ' + str(lst[6]) + ' ; HP: ' + str(lst[8]))
         embed.set_author(name='Osu!', url='https://osu.ppy.sh/home',
             icon_url=r'https://upload.wikimedia.org/wikipedia/commons/4/44/Osu%21Logo_%282019%29.png')
         embed.set_thumbnail(url='https://b.ppy.sh/thumb/' + str(lst[0]) + 'l.jpg')
@@ -211,12 +211,15 @@ async def osu_lastgame(ctx, arg):
         embed.add_field(name='Score',     value=str('{:,}'.format(lst[9])))
         embed.add_field(name='Max Combo', value=str(lst[10]))
         embed.add_field(name='300',       value=str(lst[12]))
-        embed.add_field(name='100',       value=str(lst[13]))
+        embed.add_field(name='Geki',  value=str(lst[17]))
         embed.add_field(name='Accuracy',
-            value=str("%.2f" % ((lst[12]/(lst[12]+lst[13]+lst[14]+lst[15]))*100)) + '%')
+            value=str("%.2f" % (((lst[12]*300)+(lst[13]*100)+(lst[14]*50))/(sum(lst[12:16])*300)*100) + '%'))
+        embed.add_field(name='100',       value=str(lst[13]))
+        embed.add_field(name='Katu',  value=str(lst[16]))
+        embed.add_field(name='Player :',  value=str(arg))
         embed.add_field(name='50',        value=str(lst[14]))
         embed.add_field(name='Miss',      value=str(lst[15]))
-        embed.add_field(name='Player :',  value=str(arg))
+        embed.add_field(name='|', value='|')
         await ctx.send(embed=embed)
 
 

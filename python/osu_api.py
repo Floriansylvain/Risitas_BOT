@@ -24,4 +24,4 @@ async def ask_osu_last_game(username):
         lm.bpm, lm.difficultyrating, lm.diff_size, lm.diff_overall,
         lm.diff_approach, lm.diff_drain, lg.score,
         lg.maxcombo, lg.rank, lg.count300, lg.count100,
-        lg.count50, lg.countmiss]
+        lg.count50, lg.countmiss, lg.countkatu, lg.countgeki]
