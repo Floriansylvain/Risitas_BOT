@@ -128,7 +128,7 @@ async def rank(ctx, arg, argf=None):
             embed = discord.Embed(title=arg, url='https://www.youtube.com/watch?v=dQw4w9WgXcQ')
             embed.set_thumbnail(url='http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/' + str(
                 player['profileIconId']) + '.png')
-            embed.set_author(name='League Of Legend', url='https://euw.leagueoflegends.com/en-gb/',
+            embed.set_author(name='League Of Legend - Rank', url='https://euw.leagueoflegends.com/en-gb/',
                 icon_url='https://static.wikia.nocookie.net/leagueoflegends/images/0/07/' + 
                 'League_of_Legends_icon.png/revision/latest?cb=20191018194326')
             if isinstance(ranks, list):
@@ -174,7 +174,7 @@ async def osu_profile(ctx, arg, argF=None):
             await ctx.send('The username you entered is unknown.')
         else:
             embed = discord.Embed(title=arg, url='https://osu.ppy.sh/users/' + str(lst[0]))
-            embed.set_author(name='Osu!', url='https://osu.ppy.sh/home',
+            embed.set_author(name='Osu! - Profile', url='https://osu.ppy.sh/home',
                 icon_url=r'https://upload.wikimedia.org/wikipedia/commons/4/44/Osu%21Logo_%282019%29.png')
             embed.set_thumbnail(url='https://a.ppy.sh/' + str(lst[0]))
             embed.add_field(name='Global Ranking',  value='#'+str('{:,}'.format(lst[8])))
@@ -205,7 +205,7 @@ async def osu_lastgame(ctx, arg, argF=None):
                 description='BPM: ' + str("%.0f" % lst[3]) + ' ; Stars: ' + str("%.1f" % lst[4]) +
                 ' ; CS: ' + str(lst[5]) + ' ; AR: ' +  str(lst[7]) +
                 ' ; OD: ' + str(lst[6]) + ' ; HP: ' + str(lst[8]))
-            embed.set_author(name='Osu!', url='https://osu.ppy.sh/home',
+            embed.set_author(name='Osu! - Last game', url='https://osu.ppy.sh/home',
                 icon_url=r'https://upload.wikimedia.org/wikipedia/commons/4/44/Osu%21Logo_%282019%29.png')
             embed.set_thumbnail(url='https://b.ppy.sh/thumb/' + str(lst[0]) + 'l.jpg')
             embed.add_field(name='Rank',      value=str(lst[11]))
@@ -231,7 +231,10 @@ async def osu_acc(ctx, arg, argF=None):
     if argF is None:
         test_acc = await ask_osu_acc(arg)
         if test_acc:
-            await ctx.send(file=discord.File('acc.jpeg'))
+            embed = discord.Embed()
+            embed.set_author(name='Osu! - Accuracy', icon_url=r'https://upload.wikimedia.org/wikipedia/commons/4/44/Osu%21Logo_%282019%29.png')
+            embed.set_image(url="attachment://acc.jpeg")
+            await ctx.send(embed=embed, file=discord.File('acc.jpeg'))
         else:
             await ctx.send('The player you entered is unknown or didn\'t played any game recently.')
     else:

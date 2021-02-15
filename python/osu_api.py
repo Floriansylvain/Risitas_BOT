@@ -40,15 +40,21 @@ async def ask_osu_acc(username):
     nb_games = len(lst)+1
     min_games = int(min(lst))
 
-    plt.figure(figsize=(9, 5))
-    plt.plot(list(range(1, nb_games)), lst)
-    plt.scatter(list(range(1, nb_games)), lst, color='red')
+    plt.figure(figsize=(9, 6))
+
+    plt.rc('axes', labelsize=18)
+
+    plt.plot(list(range(1, nb_games)), lst, color='#ffbf00')
+    plt.scatter(list(range(1, nb_games)), lst, color='#ffca2b')
     plt.axis([1, nb_games-1, min_games, 100])
-    plt.title('Accuracy of ' + username + ' on his last ' + str(nb_games-1) + ' games.')
     plt.xticks(range(1, nb_games))
     plt.yticks(range(min_games, 100, 5))
+
     plt.grid(linewidth=0.5)
+    plt.title('Accuracy of ' + username + ' on his last ' + str(nb_games-1) + ' games.', fontsize=20)
     plt.ylabel('Accuracy (%)')
     plt.xlabel('Games (from recent to oldest)')
-    plt.savefig('acc.jpeg')
+
+    plt.gca().set_facecolor('#36393f')
+    plt.savefig('acc.jpeg', facecolor='#ffd1f1')
     return 1
