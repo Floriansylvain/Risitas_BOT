@@ -130,3 +130,6 @@ dmypy.json
 
 # Tokens and IDs
 private.py
+
+# Generated JPEG File
+acc.jpeg

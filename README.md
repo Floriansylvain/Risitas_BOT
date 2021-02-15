@@ -15,19 +15,23 @@
 
 <br>
 
-![](assets/chat_record1.gif)
+![](assets/chat.gif)
 
 <br>
 
-![](assets/rank_record.gif)
+![](assets/rank.png)
 
 <br>
 
-![](assets/osu_record.gif)
+![](assets/osu_profile.png)
 
 <br>
 
-![](assets/osu_record1.gif)
+![](assets/osu_lastgame.png)
+
+<br>
+
+![](assets/osu_acc.png)
 
 <br>
 
@@ -67,14 +71,21 @@ This command will display a message with the current League of Legend rank of th
 ```
 $osu_profile {osu_username}
 ```
-This command will display a message with all the (basics) stats from the Osu! profile you ask for.
+This command will display a message with all the (basics) stats from the Osu! profile you ask for. Make sure to use quotes if there is spaces in the username.
 
 
 ### **osu_lastgame**
 ```
 $osu_lastgame {osu_username}
 ```
-This command will display a message with all the stats from the last Osu! game the player you asked for played.
+This command will display a message with all the stats from the last Osu! game the player you asked for played. Make sure to use quotes if there is spaces in the username.
+
+
+### **osu_acc**
+```
+$osu_acc {osu_username}
+```
+This command will display the Accuracy of the player you asked for on his last games (with a maximum of 10 games). 
 
 <br>
 
