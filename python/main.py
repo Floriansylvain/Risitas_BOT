@@ -5,6 +5,7 @@ import discord
 from private import *
 from osu_api import *
 from discord.ext import tasks, commands
+from discord.ext.commands.cooldowns import BucketType
 from riot_api import rank_track, WATCHER, REGION
 from riotwatcher import ApiError
 from emoji import demojize
@@ -13,7 +14,7 @@ from twitch import TwitchClient
 bot = commands.Bot(command_prefix='$')
 twitch_client = TwitchClient(client_id=ID_TWITCH, oauth_token=TOKEN_TWITCH)
 chats = dict()
-
+CD_ISSOU = 0
 
 class ChatObj:
     def __init__(self, twitch_user, discord_channel):
@@ -120,6 +121,7 @@ async def chat_stop(ctx):
 
 
 @bot.command()
+@commands.cooldown(1, 2, commands.BucketType.user)
 async def rank(ctx, arg, argf=None):
     if argf is None:
         try:
@@ -145,6 +147,7 @@ async def rank(ctx, arg, argf=None):
 
 
 @bot.command()
+@commands.cooldown(1, 2, commands.BucketType.guild)
 async def issou(ctx, arg1: discord.User = None):
     if arg1 is not None:
         user = arg1
@@ -162,6 +165,8 @@ async def issou(ctx, arg1: discord.User = None):
         if voice.is_playing():
             await asyncio.sleep(1)
         await voice.disconnect()
+        global CD_ISSOU
+        CD_ISSOU = 0
     else:
         await ctx.send('You or the targeted person are not connected to any channel.')
 
@@ -239,6 +244,14 @@ async def osu_acc(ctx, arg, argF=None):
             await ctx.send('The player you entered is unknown or didn\'t played any game recently.')
     else:
         await ctx.send('If you are trying to use a username with spaces, please surround it with quotes.')
+
+
+@issou.error
+async def issou_error(ctx, error):
+    global CD_ISSOU
+    if isinstance(error, commands.CommandOnCooldown) and not CD_ISSOU:
+        await ctx.send(f'Please wait at least 2 seconds between each $issou.')
+        CD_ISSOU = 1
 
 
 bot.run(TOKEN_BOT)
