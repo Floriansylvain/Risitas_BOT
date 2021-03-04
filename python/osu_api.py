@@ -48,7 +48,7 @@ async def ask_osu_acc(username):
     plt.scatter(list(range(1, nb_games)), lst, color='#ffca2b')
     plt.axis([1, nb_games-1, min_games, 100])
     plt.xticks(range(1, nb_games))
-    plt.yticks(range(min_games, 100, 5))
+    plt.yticks(range(min_games, 100, 3))
 
     plt.grid(linewidth=0.5)
     plt.title('Accuracy of ' + username + ' on his last ' + str(nb_games-1) + ' games.', fontsize=20)
