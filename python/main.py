@@ -127,7 +127,7 @@ async def rank(ctx, arg, argf=None):
         try:
             player = WATCHER.summoner.by_name(REGION, arg)
             ranks = rank_track(player)
-            embed = discord.Embed(title=arg, url='https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+            embed = discord.Embed(title=arg, url='https://bit.ly/3biTekM')
             embed.set_thumbnail(url='http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/' + str(
                 player['profileIconId']) + '.png')
             embed.set_author(name='League Of Legend - Rank', url='https://euw.leagueoflegends.com/en-gb/',
