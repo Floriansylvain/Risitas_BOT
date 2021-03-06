@@ -122,7 +122,7 @@ async def chat_stop(ctx):
 
 @bot.command()
 @commands.cooldown(1, 2, commands.BucketType.user)
-async def rank(ctx, arg, argf=None):
+async def lol_rank(ctx, arg, argf=None):
     if argf is None:
         try:
             player = WATCHER.summoner.by_name(REGION, arg)

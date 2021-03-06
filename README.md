@@ -19,7 +19,7 @@
 
 <br>
 
-![](assets/rank.png)
+![](assets/lol_rank.png)
 
 <br>
 
@@ -60,9 +60,9 @@ $issou @{discord_member}
 This command will make the bot shout the "Issou !" meme in a voice channel. By default it will do it in the voice channel where the user is connected but you can tag a user on your server to make the bot join their voice channel.
 
 
-### **rank**
+### **lol_rank**
 ```
-$rank {lol_username}
+$lol_rank {lol_username}
 ```
 This command will display a message with the current League of Legend rank of the EUW account you ask for. Make sure to use quotes if there is spaces in the LoL username.
 
