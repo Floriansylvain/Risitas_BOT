@@ -77,7 +77,7 @@ class TwitchCmds(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def chat_set(self, ctx, arg1):
+    async def chat_set(self, ctx, channel_name):
         try:
             await ctx.message.delete()
         except discord.errors.Forbidden:
@@ -86,10 +86,10 @@ class TwitchCmds(commands.Cog):
         if what_channel in list(chats):
             await ctx.send("```A chat is already active, you have to stop it before with the cmd $chat_stop !```")
         else:
-            if check_user(arg1):
-                obj = ChatObj(arg1, what_channel, self.bot)
+            if check_user(channel_name):
+                obj = ChatObj(channel_name, what_channel, self.bot)
                 if obj.chat_init():
-                    await ctx.send(f'```Now connected to {arg1}\'s twitch channel !```')
+                    await ctx.send(f'```Now connected to {channel_name}\'s twitch channel !```')
                     obj.twitch.start()
                 else:
                     await ctx.send('```Something went wrong when trying to access Twitch IRC.```')

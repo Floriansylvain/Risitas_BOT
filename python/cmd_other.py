@@ -1,6 +1,5 @@
 import discord
 import asyncio
-
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 
@@ -14,9 +13,9 @@ class OtherCmds(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.guild)
-    async def issou(self, ctx, arg1: discord.User = None):
-        if arg1 is not None:
-            user = arg1
+    async def issou(self, ctx, username: discord.User = None):
+        if username is not None:
+            user = username
         else:
             user = ctx.message.author
         try:

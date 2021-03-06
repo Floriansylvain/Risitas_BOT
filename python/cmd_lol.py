@@ -12,12 +12,12 @@ class LolCmds(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def lol_rank(self, ctx, arg, argf=None):
-        if argf is None:
-            player = what_player(arg)
+    async def lol_rank(self, ctx, invocator_name, x=None):
+        if x is None:
+            player = what_player(invocator_name)
             if player != 0:
                 ranks = rank_track(player)
-                embed = discord.Embed(title=arg, url='https://bit.ly/3biTekM')
+                embed = discord.Embed(title=invocator_name, url='https://bit.ly/3biTekM')
                 embed.set_thumbnail(url='http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/' + str(
                     player['profileIconId']) + '.png')
                 embed.set_author(name='League Of Legend - Rank', url='https://euw.leagueoflegends.com/en-gb/',

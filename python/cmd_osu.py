@@ -9,13 +9,13 @@ class OsuCmds(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def osu_profile(self, ctx, arg, argF=None):
-        if argF is None:
-            lst = await ask_osu_profile(arg)
+    async def osu_profile(self, ctx, username, x=None):
+        if x is None:
+            lst = await ask_osu_profile(username)
             if lst == 1:
                 await ctx.send('The username you entered is unknown.')
             else:
-                embed = discord.Embed(title=arg, url='https://osu.ppy.sh/users/' + str(lst[0]))
+                embed = discord.Embed(title=username, url='https://osu.ppy.sh/users/' + str(lst[0]))
                 embed.set_author(name='Osu! - Profile', url='https://osu.ppy.sh/home',
                     icon_url=r'https://upload.wikimedia.org/wikipedia/commons/4/44/Osu%21Logo_%282019%29.png')
                 embed.set_thumbnail(url='https://a.ppy.sh/' + str(lst[0]))
@@ -37,9 +37,9 @@ class OsuCmds(commands.Cog):
 
 
     @commands.command()
-    async def osu_lastgame(self, ctx, arg, argF=None):
-        if argF is None:
-            lst = await ask_osu_last_game(arg)
+    async def osu_lastgame(self, ctx, username, x=None):
+        if x is None:
+            lst = await ask_osu_last_game(username)
             if lst == 1:
                 await ctx.send('The player you entered is unknown or didn\'t played any game recently.')
             else:
@@ -59,7 +59,7 @@ class OsuCmds(commands.Cog):
                     value=str("%.2f" % (((lst[12]*300)+(lst[13]*100)+(lst[14]*50))/(sum(lst[12:16])*300)*100) + '%'))
                 embed.add_field(name='100',       value=str(lst[13]))
                 embed.add_field(name='Katu',      value=str(lst[16]))
-                embed.add_field(name='Player :',  value=str(arg))
+                embed.add_field(name='Player :',  value=str(username))
                 embed.add_field(name='50',        value=str(lst[14]))
                 embed.add_field(name='Miss',      value=str(lst[15]))
                 embed.add_field(name='|', value='|')
@@ -69,9 +69,9 @@ class OsuCmds(commands.Cog):
 
 
     @commands.command()
-    async def osu_acc(self, ctx, arg, argF=None):
-        if argF is None:
-            test_acc = await ask_osu_acc(arg)
+    async def osu_acc(self, ctx, username, x=None):
+        if x is None:
+            test_acc = await ask_osu_acc(username)
             if test_acc:
                 embed = discord.Embed()
                 embed.set_author(name='Osu! - Accuracy', icon_url=r'https://upload.wikimedia.org/wikipedia/commons/4/44/Osu%21Logo_%282019%29.png')
