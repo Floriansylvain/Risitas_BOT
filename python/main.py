@@ -2,14 +2,17 @@ import asyncio
 import socket
 import re
 import discord
-from private import *
-from osu_api import *
+
 from discord.ext import tasks, commands
 from discord.ext.commands.cooldowns import BucketType
-from riot_api import rank_track, WATCHER, REGION
-from riotwatcher import ApiError
+
+from private import *
+from osu_api import *
+from riot_api import rank_track, what_player
+
 from emoji import demojize
 from twitch import TwitchClient
+
 
 bot = commands.Bot(command_prefix='$')
 twitch_client = TwitchClient(client_id=ID_TWITCH, oauth_token=TOKEN_TWITCH)
@@ -124,8 +127,8 @@ async def chat_stop(ctx):
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def lol_rank(ctx, arg, argf=None):
     if argf is None:
-        try:
-            player = WATCHER.summoner.by_name(REGION, arg)
+        player = what_player(arg)
+        if player != 0:
             ranks = rank_track(player)
             embed = discord.Embed(title=arg, url='https://bit.ly/3biTekM')
             embed.set_thumbnail(url='http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/' + str(
@@ -140,7 +143,7 @@ async def lol_rank(ctx, arg, argf=None):
             else:
                 embed.description = ranks
             await ctx.send(embed=embed)
-        except ApiError:
+        else:
             await ctx.send('The username you entered is unknown.')
     else:
         await ctx.send('If you are trying to use a username with spaces, please surround it with quotes.')

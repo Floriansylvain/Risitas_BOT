@@ -1,16 +1,19 @@
-from riotwatcher import LolWatcher
+from riotwatcher import LolWatcher, ApiError
 from private import TOKEN_RIOT
 
 WATCHER = LolWatcher(TOKEN_RIOT)
 REGION = 'EUW1'
 
-def rank_track(player):
-    '''function that communicate with Riot API'''
-    ranked_stats = WATCHER.league.by_summoner(REGION, player['id'])
+def what_player(name):
+    try:
+        return WATCHER.summoner.by_name(REGION, name)
+    except ApiError:
+        return 0
 
+def rank_track(player):
+    ranked_stats = WATCHER.league.by_summoner(REGION, player['id'])
     if not ranked_stats:
         return 'Unranked cette saison.'
-
     liste = []
     for infos in ranked_stats:
         if infos['queueType'] == 'RANKED_SOLO_5x5':
