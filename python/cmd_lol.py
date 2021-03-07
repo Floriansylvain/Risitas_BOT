@@ -38,5 +38,15 @@ class LolCmds(commands.Cog):
             await ctx.send('If you are trying to use a username with spaces, please surround it with quotes.')
 
 
+    @lol_rank.error
+    async def lolrank_error(self, ctx, error):
+        global CD_LOLRANK
+        if isinstance(error, commands.CommandOnCooldown) and not CD_LOLRANK:
+            await ctx.send(f'Please wait at least 2 seconds between each $lol_rank.')
+            CD_LOLRANK = 1
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send(f'Please enter an invocator name () after $lol_rank.')
+
+
 def setup(bot):
     bot.add_cog(LolCmds(bot))
