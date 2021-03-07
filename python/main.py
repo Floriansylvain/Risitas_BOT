@@ -1,15 +1,19 @@
 from private import TOKEN_BOT
+from time import time
 from discord.ext import commands
 import discord
 
 bot = commands.Bot(command_prefix='$')
 startup_extensions = ["cmd_other", "cmd_lol", "cmd_osu", "cmd_twitch"]
+time_s = time()
+print('Loading started')
 
 @bot.event
 async def on_ready():
     default_activity = discord.Activity(type=discord.ActivityType.listening, name='$help')
     await bot.change_presence(activity=default_activity)
-    print('We have logged in as ' + bot.user.name + '.')
+    print('Logged in as ' + str(bot.user) +
+        ' in ' + str(round(time() - time_s, 2)) + 's.')
 
 
 @bot.command(hidden=True)
@@ -43,4 +47,5 @@ async def unloadext(ctx, extension):
 if __name__ == "__main__":
     for extension in startup_extensions:
         bot.load_extension(extension)
+        print('Extension "' + str(extension) + '" loaded.')
     bot.run(TOKEN_BOT)
