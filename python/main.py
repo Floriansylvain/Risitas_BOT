@@ -2,10 +2,8 @@ from private import TOKEN_BOT
 from discord.ext import commands
 import discord
 
-
 bot = commands.Bot(command_prefix='$')
 startup_extensions = ["cmd_other", "cmd_lol", "cmd_osu", "cmd_twitch"]
-
 
 @bot.event
 async def on_ready():

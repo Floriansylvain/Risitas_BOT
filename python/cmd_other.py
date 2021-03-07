@@ -3,9 +3,7 @@ import asyncio
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 
-
 CD_ISSOU = 0
-
 
 class OtherCmds(commands.Cog):
     def __init__(self, bot):

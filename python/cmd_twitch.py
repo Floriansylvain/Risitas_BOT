@@ -8,10 +8,8 @@ from discord.ext.commands.cooldowns import BucketType
 from emoji import demojize
 from twitch import TwitchClient
 
-
 twitch_client = TwitchClient(client_id=ID_TWITCH, oauth_token=TOKEN_TWITCH)
 chats = dict()
-
 
 def check_user(name):
     user = twitch_client.users.translate_usernames_to_ids([name])
