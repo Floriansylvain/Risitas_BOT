@@ -37,7 +37,7 @@
 
 # 📢 Commands
 
-<br>
+## Twitch
 
 ### **chat_set**
 ```
@@ -53,11 +53,7 @@ $chat_stop
 This command allows you to stop the active twitch chat in the channel.
 
 
-### **issou**
-```
-$issou @{discord_member}
-```
-This command will make the bot shout the "Issou !" meme in a voice channel. By default it will do it in the voice channel where the user is connected but you can tag a user on your server to make the bot join their voice channel.
+## League of Legend
 
 
 ### **lol_rank**
@@ -65,6 +61,9 @@ This command will make the bot shout the "Issou !" meme in a voice channel. By d
 $lol_rank {lol_username}
 ```
 This command will display a message with the current League of Legend rank of the EUW account you ask for. Make sure to use quotes if there is spaces in the LoL username.
+
+
+## Osu!
 
 
 ### **osu_profile**
@@ -86,6 +85,16 @@ This command will display a message with all the stats from the last Osu! game t
 $osu_acc {osu_username}
 ```
 This command will display the Accuracy of the player you asked for on his last games (with a maximum of 10 games). 
+
+
+## Other
+
+
+### **issou**
+```
+$issou @{discord_member}
+```
+This command will make the bot shout the "Issou !" meme in a voice channel. By default it will do it in the voice channel where the user is connected but you can tag a user on your server to make the bot join their voice channel.
 
 <br>
 
