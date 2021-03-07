@@ -12,10 +12,35 @@ async def on_ready():
     print('We have logged in as ' + bot.user.name + '.')
 
 
+@bot.command(hidden=True)
+@commands.is_owner()
+async def loadext(ctx, extension):
+    try:
+        bot.load_extension(extension)
+        await ctx.send(str(extension) + ' successfully loaded.')
+    except discord.ext.commands.ExtensionNotFound:
+        await ctx.send('Extension not found.')
+    except discord.ext.commands.ExtensionAlreadyLoaded:
+        await ctx.send('Extension already loaded.')
+    except discord.ext.commands.NoEntryPointError as a:
+        await ctx.send(a)
+    except ExtensionFailed as b:
+        await ctx.send(b)
+
+
+@bot.command(hidden=True)
+@commands.is_owner()
+async def unloadext(ctx, extension):
+    try:
+        bot.unload_extension(extension)
+        await ctx.send(str(extension) + ' successfully unloaded.')
+    except discord.ext.commands.ExtensionNotFound:
+        await ctx.send('Extension not found.')
+    except discord.ext.commands.ExtensionNotLoaded:
+        await ctx.send('Extension not loaded.')
+
+
 if __name__ == "__main__":
     for extension in startup_extensions:
-        try:
-            bot.load_extension(extension)
-        except Exception as e:
-            print(e)
+        bot.load_extension(extension)
     bot.run(TOKEN_BOT)
