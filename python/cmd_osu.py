@@ -4,7 +4,7 @@ from discord.ext import commands
 from api_osu import *
 
 
-class OsuCmds(commands.Cog):
+class OsuCmds(commands.Cog, name='Osu! commands'):
     def __init__(self, bot):
         self.bot = bot
 

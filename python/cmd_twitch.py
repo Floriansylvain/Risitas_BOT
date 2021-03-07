@@ -70,7 +70,7 @@ class ChatObj:
             pass
 
 
-class TwitchCmds(commands.Cog):
+class TwitchCmds(commands.Cog, name='Twitch commands'):
     def __init__(self, bot):
         self.bot = bot
 

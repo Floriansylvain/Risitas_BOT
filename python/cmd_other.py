@@ -5,7 +5,7 @@ from discord.ext.commands.cooldowns import BucketType
 
 CD_ISSOU = 0
 
-class OtherCmds(commands.Cog):
+class OtherCmds(commands.Cog, name='Other commands'):
     def __init__(self, bot):
         self.bot = bot
 

@@ -7,7 +7,7 @@ from api_riot import rank_track, what_player
 
 CD_LOLRANK = 0
 
-class LolCmds(commands.Cog):
+class LolCmds(commands.Cog, name='League of Legend commands'):
     def __init__(self, bot):
         self.bot = bot
 
