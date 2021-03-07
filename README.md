@@ -52,7 +52,9 @@ $chat_stop
 ```
 This command allows you to stop the active twitch chat in the channel.
 
+
 ## League of Legend
+
 
 ### **lol_rank**
 ```
@@ -61,14 +63,14 @@ $lol_rank {lol_username}
 This command will display a message with the current League of Legend rank of the EUW account you ask for. Make sure to use quotes if there is spaces in the LoL username.
 
 
+## Osu!
+
+
 ### **osu_profile**
 ```
 $osu_profile {osu_username}
 ```
 This command will display a message with all the (basics) stats from the Osu! profile you ask for. Make sure to use quotes if there is spaces in the username.
-
-
-## Osu!
 
 
 ### **osu_lastgame**
