@@ -45,7 +45,7 @@ class LolCmds(commands.Cog):
             await ctx.send(f'Please wait at least 2 seconds between each $lol_rank.')
             CD_LOLRANK = 1
         elif isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(f'Please enter an invocator name () after $lol_rank.')
+            await ctx.send(f'Please enter an invocator name (EUW) after $lol_rank.')
 
 
 def setup(bot):
