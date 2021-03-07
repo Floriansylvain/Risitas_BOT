@@ -14,6 +14,7 @@ class LolCmds(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def lol_rank(self, ctx, invocator_name, x=None):
+        global CD_LOLRANK
         CD_LOLRANK = 0
         if x is None:
             player = what_player(invocator_name)
