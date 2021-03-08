@@ -56,7 +56,7 @@ class LolCmds(commands.Cog, name='League of Legend commands'):
                     equals = int(round(float(pourcent)/3.3))
                     hyphen = 30 - equals
                     tab.append('[' + '='*equals + ' '*hyphen +']\n')
-                    players.append(stat[0] + '\n')
+                    players.append(stat[0][:15] + '\n')
                     kda.append(str(stat[2]) + '/' + str(stat[3]) + '/' + str(stat[4]) + '\n')
                 embed = discord.Embed(title=invocator_name, url='https://bit.ly/3biTekM', 
                     description='Date: ' + lst[2] + '\nLength: ' + lst[3])
