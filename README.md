@@ -1,6 +1,6 @@
 <h1 align="center">🤖 Risitas Discord Bot 🤖</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.5-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.6-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
     <img alt="License: GPL 3.0" src="https://img.shields.io/badge/License-GPL%203.0-yellow" />
   </a>
@@ -20,6 +20,10 @@
 <br>
 
 ![](assets/lol_rank.png)
+
+<br>
+
+![](assets/lol_lastgame.png)
 
 <br>
 
@@ -61,6 +65,13 @@ This command allows you to stop the active twitch chat in the channel.
 $lol_rank {lol_username}
 ```
 This command will display a message with the current League of Legend rank of the EUW account you ask for. Make sure to use quotes if there is spaces in the LoL username.
+
+
+### **lol_lastgame**
+```
+$lol_lastgame {lol_username}
+```
+This command will display a summary (which team won, players, damages, kda...) of the last League of Legend game of the EUW account you ask for.
 
 
 ## Osu!
