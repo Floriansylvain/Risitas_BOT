@@ -55,7 +55,7 @@ class LolCmds(commands.Cog, name='League of Legend commands'):
                     pourcent = round(100*stat[1]/maximum)
                     equals = int(round(float(pourcent)/3.3))
                     hyphen = 30 - equals
-                    tab.append('[' + '='*equals + '-'*hyphen +']\n')
+                    tab.append('[' + '='*equals + ' '*hyphen +']\n')
                     players.append(stat[0] + '\n')
                     kda.append(str(stat[2]) + '/' + str(stat[3]) + '/' + str(stat[4]) + '\n')
                 embed = discord.Embed(title=invocator_name, url='https://bit.ly/3biTekM', 
