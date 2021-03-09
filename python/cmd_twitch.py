@@ -74,7 +74,7 @@ class TwitchCmds(commands.Cog, name='Twitch commands'):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(ignore_extra=False)
     async def chat_set(self, ctx, channel_name):
         try:
             await ctx.message.delete()
