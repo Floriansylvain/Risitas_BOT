@@ -38,8 +38,9 @@ async def unloadext(ctx, extension):
     bot.unload_extension(extension)
     await ctx.send("Extension unloaded.")
 
+
 if __name__ == "__main__":
     for extension in startup_extensions:
-        bot.load_extension(extension)
+        bot.load_extension('ext.' + extension)
         print('Extension "' + str(extension) + '" loaded.')
     bot.run(TOKEN_BOT)
