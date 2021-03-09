@@ -66,11 +66,16 @@ class LolCmds(commands.Cog, name='League of Legend commands'):
                 await ctx.send(embed=embed)
                 for i in range(0, -2, -1):
                     embed = discord.Embed(title='Team 1' if not i else 'Team 2', colour=
-                        discord.Colour.green() if lst[1][0][i] == 'Win' else discord.Colour.red(),
-                        description=':drop_of_blood: First blood' if lst[1][1][i] else None)
-                    embed.add_field(name='Players', value='```\n' + ''.join(players[:5] if not i else players[5:]) + '```')
-                    embed.add_field(name='Total damage dealt to champions', value='```\n' + ''.join(tab[:5] if not i else tab[5:]) + '```')
-                    embed.add_field(name='K / D / A', value='```\n' + ''.join(kda[:5] if not i else kda[5:]) + '```')
+                        discord.Colour.green() if lst[1][0][i] == 'Win' else discord.Colour.red(), description=
+                            (':drop_of_blood: First blood\n' if len(lst[1][1]) != 0 and lst[1][1][i] else '') +
+                            (':tokyo_tower: First tower\n' if len(lst[1][2]) != 0 and lst[1][2][i] else '') +
+                            (':dragon_face: First dragon\n' if len(lst[1][3]) != 0 and lst[1][3][i] else ''))
+                    embed.add_field(name='Players', 
+                        value='```\n' + ''.join(players[:5] if not i else players[5:]) + '```')
+                    embed.add_field(name='Total damage dealt to champions', 
+                        value='```\n' + ''.join(tab[:5] if not i else tab[5:]) + '```')
+                    embed.add_field(name='K / D / A', 
+                        value='```\n' + ''.join(kda[:5] if not i else kda[5:]) + '```')
                     await ctx.send(embed=embed)
             else:
                 await ctx.send('The username you entered is unknown.')

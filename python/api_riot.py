@@ -30,7 +30,7 @@ def last_match(player):
     matches = WATCHER.match.matchlist_by_account('EUW1', player['accountId'])
     recent_match = matches['matches'][0]
     match_detail = WATCHER.match.by_id('EUW1', recent_match['gameId'])
-    lst = [[],[[],[]]]
+    lst = [[],[[],[],[],[]]]
     for x, y in zip(match_detail['participants'], match_detail['participantIdentities']):
         lst[0].append([y['player']['summonerName'],
             x['stats']['totalDamageDealtToChampions'],
@@ -41,6 +41,8 @@ def last_match(player):
     for team in match_detail['teams']:
         lst[1][0].append(team['win'])
         lst[1][1].append(team['firstBlood'])
+        lst[1][2].append(team['firstTower'])
+        lst[1][3].append(team['firstDragon'])
 
     ts = str(match_detail['gameCreation'])[:-3]
     dt = datetime.fromtimestamp(int(ts)).date()
