@@ -28,6 +28,3 @@ def spellchecker(word):
         str_words += '$' + lst[indice] + ' ?\n'
     return str_words
 
-
-if __name__ == '__main__':
-    main()
