@@ -2,7 +2,6 @@ import discord
 import asyncio
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
-from private import TOKEN_RIOT
 from api_riot import rank_track, what_player, last_match
 
 CD_LOLRANK = 0

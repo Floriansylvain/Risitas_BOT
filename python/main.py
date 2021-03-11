@@ -2,6 +2,7 @@ from private import TOKEN_BOT
 from time import time
 from datetime import datetime
 from discord.ext import commands
+from miscellaneous import spellchecker
 import discord
 
 
@@ -22,7 +23,10 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     print(datetime.now().strftime("[%H:%M:%S]") + ' \'' + str(error) + '\' from ' + str(ctx.author) + ' on ' + ctx.message.guild.name + '.')
-    await ctx.send(error)
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send(spellchecker(str(ctx.message.content)[1:]))
+    else:
+        await ctx.send(error)
 
 
 @bot.command(hidden=True, ignore_extra=False)
