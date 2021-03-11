@@ -22,7 +22,8 @@ async def on_ready():
 
 @bot.event
 async def on_command_error(ctx, error):
-    print(datetime.now().strftime("[%H:%M:%S]") + ' \'' + str(error) + '\' from ' + str(ctx.author) + ' on ' + ctx.message.guild.name + '.')
+    print(datetime.now().strftime("[%H:%M:%S]") + ' \'' + str(error) + '\' from ' +str(ctx.author) +
+        ' on ' + (ctx.message.guild.name if ctx.message.guild is not None else 'DMs') + '.')
     if isinstance(error, commands.CommandNotFound):
         await ctx.send(spellchecker(str(ctx.message.content)[1:]))
     else:
