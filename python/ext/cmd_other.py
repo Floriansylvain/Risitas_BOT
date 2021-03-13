@@ -27,8 +27,8 @@ class OtherCmds(commands.Cog, name='Other commands'):
         if voice_channel is not None:
             voice = await voice_channel.connect()
             voice.play(discord.FFmpegPCMAudio('../assets/issou.mp3'))
-            if voice.is_playing():
-                await asyncio.sleep(1)
+            while voice.is_playing():
+                await asyncio.sleep(0.5)
             await voice.disconnect()
         else:
             await ctx.send('You or the targeted person are not connected to any channel.')
