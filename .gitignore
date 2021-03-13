@@ -133,3 +133,6 @@ private.py
 
 # Generated JPEG File
 acc.jpeg
+
+# Script for CI
+.sh

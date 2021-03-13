@@ -3,6 +3,7 @@ from time import time
 from datetime import datetime
 from discord.ext import commands
 from miscellaneous import spellchecker
+import os, sys
 import discord
 
 
@@ -42,6 +43,14 @@ async def loadext(ctx, extension):
 async def unloadext(ctx, extension):
     bot.unload_extension(extension)
     await ctx.send("Extension unloaded.")
+
+
+@bot.command(hidden=True)
+@commands.is_owner()
+async def update(ctx):
+    result = os.popen('git pull')
+    await ctx.send(str(result.read()))
+    os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
 
 
 if __name__ == "__main__":
