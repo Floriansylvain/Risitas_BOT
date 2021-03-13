@@ -53,11 +53,6 @@ async def update(ctx):
     os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
 
 
-@bot.command(hidden=True)
-async def ping(ctx):
-    await ctx.send('Pong !')
-
-
 if __name__ == "__main__":
     for extension in startup_extensions:
         bot.load_extension('ext.' + extension)
