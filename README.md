@@ -112,7 +112,7 @@ This command will make the bot shout the "Issou !" meme in a voice channel. By d
 
 # ⚙ Configuration
 
->**To use this bot you'll have to create a private.py file and enter the different tokens to use the API's by assigning values to those variables**
+>**To use this bot you'll have to create a private.py file and enter the different tokens to use the API's by assigning values to those variables (a sample is available in the repo)**
 ```
 External service tokens :
 * TOKEN_BOT
