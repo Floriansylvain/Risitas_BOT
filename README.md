@@ -1,6 +1,6 @@
 <h1 align="center">🤖 Risitas Discord Bot 🤖</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.6-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.7-blue.svg?cacheSeconds=2592000" />
   <img alt="Last Commit" src="https://img.shields.io/github/last-commit/Floriansylvain/Risitas_BOT">
   <a href="#" target="_blank">
     <img alt="License: GPL 3.0" src="https://img.shields.io/badge/License-GPL%203.0-yellow" />
