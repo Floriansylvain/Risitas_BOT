@@ -1,6 +1,7 @@
 from discord.ext import commands
 from datetime import datetime
 from __main__ import startup_date
+import os, sys
 import discord
 import asyncio
 
@@ -12,16 +13,15 @@ class OwnerCmds(commands.Cog, name='Owner commands'):
     @commands.command(hidden=True, ignore_extra=False)
     @commands.is_owner()
     async def loadext(self, ctx, extension):
-        bot.load_extension(extension)
+        self.bot.load_extension(extension)
         await ctx.send("Extension loaded.")
 
 
     @commands.command(hidden=True, ignore_extra=False)
     @commands.is_owner()
     async def unloadext(self, ctx, extension):
-        bot.unload_extension(extension)
+        self.bot.unload_extension(extension)
         await ctx.send("Extension unloaded.")
-
 
     @commands.command(hidden=True)
     @commands.is_owner()
