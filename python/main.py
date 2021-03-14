@@ -11,7 +11,7 @@ import discord
 print('Loading started')
 
 bot = commands.Bot(command_prefix='$')
-startup_extensions = ["cmd_other", "cmd_lol", "cmd_osu", "cmd_twitch"]
+startup_extensions = ["cmd_other", "cmd_lol", "cmd_osu", "cmd_twitch", "cmd_owner"]
 
 startup_date = datetime.now()
 time_s = time()
@@ -41,36 +41,6 @@ async def on_command_error(ctx, error):
         await ctx.send(spellchecker(str(ctx.message.content)[1:]))
     else:
         await ctx.send(error)
-
-
-@bot.command(hidden=True, ignore_extra=False)
-@commands.is_owner()
-async def loadext(ctx, extension):
-    bot.load_extension(extension)
-    await ctx.send("Extension loaded.")
-
-
-@bot.command(hidden=True, ignore_extra=False)
-@commands.is_owner()
-async def unloadext(ctx, extension):
-    bot.unload_extension(extension)
-    await ctx.send("Extension unloaded.")
-
-
-@bot.command(hidden=True)
-@commands.is_owner()
-async def update(ctx):
-    result = str(os.popen('git pull').read())
-    await ctx.send('``' + result + '``')
-    if 'Already up to date' not in result:
-        os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
-
-
-@bot.command(hidden=True)
-@commands.is_owner()
-async def getlogs(ctx):
-    await ctx.send('Logs since ' + startup_date.strftime("``[%d-%m-%y | %H:%M:%S]``"),
-        file=discord.File('logs.txt'))
 
 
 if __name__ == "__main__":
