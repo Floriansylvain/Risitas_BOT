@@ -136,3 +136,6 @@ acc.jpeg
 
 # Logs
 logs.txt
+
+# Visual Code related files
+/.vscode
