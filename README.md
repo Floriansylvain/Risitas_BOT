@@ -8,7 +8,7 @@
   <img alt="Github Stars" src="https://img.shields.io/github/stars/Floriansylvain/Risitas_BOT?style=social">
 </p>
 
->Risitas is a Discord bot that can connect your twitch chat to a discord channel in real time, make laugh your friends by playing the "Issou !" meme on command in a voice channel and even give you your League Of Legend rank.
+>Risitas is a Discord bot that can connect your twitch chat to a discord channel in real time, make laugh your friends by playing the "Issou !" meme on command in a voice channel and even give you some League Of Legend stats.
 
 <br>
 
