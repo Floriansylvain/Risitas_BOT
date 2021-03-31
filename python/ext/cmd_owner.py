@@ -13,14 +13,14 @@ class OwnerCmds(commands.Cog, name='Owner commands'):
     @commands.command(hidden=True, ignore_extra=False)
     @commands.is_owner()
     async def loadext(self, ctx, extension):
-        self.bot.load_extension(extension)
+        self.bot.load_extension('ext.' + extension)
         await ctx.send("Extension loaded.")
 
 
     @commands.command(hidden=True, ignore_extra=False)
     @commands.is_owner()
     async def unloadext(self, ctx, extension):
-        self.bot.unload_extension(extension)
+        self.bot.unload_extension('ext.' + extension)
         await ctx.send("Extension unloaded.")
 
     @commands.command(hidden=True)
