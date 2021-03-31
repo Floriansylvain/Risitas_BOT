@@ -7,8 +7,7 @@ def all_maximum(lst):
     return lst_result
 
 
-def spellchecker(word):
-    lst = ['osu_acc','osu_lastgame','osu_profile','lol_rank','lol_lastgame','chat_set','chat_stop','issou','help']
+def spellchecker(word, lst):
     probs = []
     wo_size = len(word)
     for element in lst:
@@ -27,4 +26,3 @@ def spellchecker(word):
     for indice in lst_maxs:
         str_words += '$' + lst[indice] + ' ?\n'
     return str_words
-

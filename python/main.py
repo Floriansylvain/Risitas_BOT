@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 
+commandlist = []
 
 @bot.event
 async def on_ready():
@@ -38,13 +39,22 @@ async def on_command_error(ctx, error):
         ' \'' + str(error) +  '\' from ' +str(ctx.author) + ' on ' +
         (ctx.message.guild.name if ctx.message.guild is not None else 'DMs') + '.')
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send(spellchecker(str(ctx.message.content)[1:]))
+        await ctx.send(spellchecker(str(ctx.message.content)[1:], commandlist))
     else:
         await ctx.send(error)
 
 
-if __name__ == "__main__":
+def init():
     for extension in startup_extensions:
         bot.load_extension('ext.' + extension)
         print('Extension "' + str(extension) + '" loaded.')
+    ignore = list(map(lambda cmd : cmd.name, bot.cogs["Owner commands"].get_commands()))
+    for command in bot.commands:
+        name = command.name
+        if not name in ignore:
+            commandlist.append(name)
+
+
+if __name__ == "__main__":
+    init()
     bot.run(TOKEN_BOT)
