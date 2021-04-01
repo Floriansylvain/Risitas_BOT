@@ -1,7 +1,6 @@
-import discord
 import asyncio
+import discord
 from discord.ext import commands
-from discord.ext.commands.cooldowns import BucketType
 
 
 class OtherCmds(commands.Cog, name='Other commands'):
@@ -10,7 +9,7 @@ class OtherCmds(commands.Cog, name='Other commands'):
 
     @commands.command(ignore_extra=False)
     @commands.cooldown(1, 2, commands.BucketType.guild)
-    async def issou(self, ctx, username: discord.User = None):
+    async def issou(self, ctx, username: discord.User=None):
         if username is not None:
             user = username
         else:

@@ -13,9 +13,9 @@ def spellchecker(word, lst):
     for element in lst:
         prob = 0
         el_size = len(element)
-        for car in element:
-            for c in word:
-                if car == c:
+        for el_car in element:
+            for wo_car in word:
+                if el_car == wo_car:
                     prob += 1
         for i in range(4):
             if el_size == wo_size - i:

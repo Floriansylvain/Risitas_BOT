@@ -1,9 +1,8 @@
-from discord.ext import commands
-from datetime import datetime
-from __main__ import startup_date
-import os, sys
+import os
+import sys
 import discord
-import asyncio
+from discord.ext import commands
+from __main__ import startup_date
 
 
 class OwnerCmds(commands.Cog, name='Owner commands'):
@@ -15,7 +14,6 @@ class OwnerCmds(commands.Cog, name='Owner commands'):
     async def loadext(self, ctx, extension):
         self.bot.load_extension('ext.' + extension)
         await ctx.send("Extension loaded.")
-
 
     @commands.command(hidden=True, ignore_extra=False)
     @commands.is_owner()
@@ -29,14 +27,13 @@ class OwnerCmds(commands.Cog, name='Owner commands'):
         result = str(os.popen('git pull').read())
         await ctx.send('``' + result + '``')
         if 'Already up to date' not in result:
-            os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
-
+            os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
 
     @commands.command(hidden=True)
     @commands.is_owner()
     async def getlogs(self, ctx):
         await ctx.send('Logs since ' + startup_date.strftime("``[%d-%m-%y | %H:%M:%S]``"),
-            file=discord.File('logs.txt'))
+                       file=discord.File('logs.txt'))
 
 
 def setup(bot):

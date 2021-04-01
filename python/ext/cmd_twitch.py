@@ -1,15 +1,15 @@
-import discord
 import asyncio
 import socket
 import re
+import discord
 from private import ID_TWITCH, TOKEN_TWITCH, SERVER, PORT, NICKNAME
 from discord.ext import tasks, commands
-from discord.ext.commands.cooldowns import BucketType
 from emoji import demojize
 from twitch import TwitchClient
 
 twitch_client = TwitchClient(client_id=ID_TWITCH, oauth_token=TOKEN_TWITCH)
 chats = dict()
+
 
 def check_user(name):
     user = twitch_client.users.translate_usernames_to_ids([name])
@@ -93,7 +93,6 @@ class TwitchCmds(commands.Cog, name='Twitch commands'):
                     await ctx.send('```Something went wrong when trying to access Twitch IRC.```')
             else:
                 await ctx.send('```This twitch channel doesn\'t seems to exist.```')
-
 
     @commands.command()
     async def chat_stop(self, ctx):
