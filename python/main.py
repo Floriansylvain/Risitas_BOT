@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 from miscellaneous import spellchecker
 from private import TOKEN_BOT
-
+from errors import errors
 
 print('Loading started')
 
@@ -39,9 +39,14 @@ async def on_command_error(ctx, error):
                 ' \'' + str(error) + '\' from ' + str(ctx.author) + ' on ' +
                 (ctx.message.guild.name if ctx.message.guild is not None else 'DMs') + '.')
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send(spellchecker(str(ctx.message.content)[1:], commandlist))
+        msg = spellchecker(str(ctx.message.content)[1:], commandlist)
     else:
-        await ctx.send(error)
+        try:
+            msg = errors[type(error)] + "\nPlease follow this pattern :\n``" + \
+                  "$" + ctx.command.name + " " + ctx.command.signature + "``"
+        except KeyError:
+            msg = "Something really bad happened (" + str(error) + ")."
+    await ctx.send(msg)
 
 
 def init():
