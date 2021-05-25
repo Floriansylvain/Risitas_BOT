@@ -133,7 +133,7 @@ Socket related var :
 
 👤 **Florian Sylvain**
 
-* Website: https://andhefallen.site/
+* Website: https://floriansylvain.fr/
 * Github: [@Floriansylvain](https://github.com/Floriansylvain)
 
 <br>
