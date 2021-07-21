@@ -10,7 +10,7 @@ from errors import errors
 print('Loading started')
 
 bot = commands.Bot(command_prefix='$')
-startup_extensions = ["cmd_other", "cmd_lol", "cmd_osu", "cmd_twitch", "cmd_owner"]
+startup_extensions = ["cmd_other", "cmd_osu", "cmd_twitch", "cmd_owner"]
 
 startup_date = datetime.now()
 time_s = time()

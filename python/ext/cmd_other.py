@@ -1,7 +1,7 @@
 import asyncio
 import discord
 from discord.ext import commands
-
+from miscellaneous import spellchecker
 
 class OtherCmds(commands.Cog, name='Other commands'):
     def __init__(self, bot):

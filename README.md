@@ -8,7 +8,7 @@
   <img alt="Github Stars" src="https://img.shields.io/github/stars/Floriansylvain/Risitas_BOT?style=social">
 </p>
 
->Risitas is a Discord bot that can connect your twitch chat to a discord channel in real time, make laugh your friends by playing the "Issou !" meme on command in a voice channel and even give you some League Of Legend stats.
+>Risitas is a Discord bot that can connect your twitch chat to a discord channel in real time, make laugh your friends by playing the "Issou !" meme on command in a voice channel.
 
 <br>
 
@@ -17,14 +17,6 @@
 <br>
 
 ![](assets/chat.gif)
-
-<br>
-
-![](assets/lol_rank.png)
-
-<br>
-
-![](assets/lol_lastgame.png)
 
 <br>
 
@@ -56,23 +48,6 @@ This command allows you to start the link between the channel where you use the 
 $chat_stop
 ```
 This command allows you to stop the active twitch chat in the channel.
-
-
-## League of Legend
-
-
-### **lol_rank**
-```
-$lol_rank {lol_username}
-```
-This command will display a message with the current League of Legend rank of the EUW account you ask for. Make sure to use quotes if there is spaces in the LoL username.
-
-
-### **lol_lastgame**
-```
-$lol_lastgame {lol_username}
-```
-This command will display a summary (which team won, players, damages, kda...) of the last League of Legend game of the EUW account you ask for.
 
 
 ## Osu!
@@ -133,7 +108,7 @@ Socket related var :
 
 👤 **Florian Sylvain**
 
-* Website: https://andhefallen.site/
+* Website: https://floriansylvain.fr/
 * Github: [@Floriansylvain](https://github.com/Floriansylvain)
 
 <br>
